@@ -1,0 +1,26 @@
+syntax = "proto3";
+package dev.stephenpearson.ztm_api.protobuf;
+
+message VehicleLocation {
+  string vehicleNumber = 1;
+  string line          = 2;
+  string brigade       = 3;
+  double lat           = 4;
+  double lon           = 5;
+  int64  timestamp     = 6;
+  double heading       = 7;
+  repeated double vector = 8;
+
+  message PreviousPosition {
+    double lat       = 1;
+    double lon       = 2;
+    int64  timestamp = 3;
+  }
+  PreviousPosition prev_position = 9;
+
+  string type = 10;
+}
+
+message VehicleLocationList {
+  repeated VehicleLocation vehicles = 1;
+}

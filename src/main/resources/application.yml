@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ztm-api
+  data:
+    redis:
+      url: ${REDIS_URL}
+
+server:
+  address: 0.0.0.0
+  port: 8082
+
+logging:
+  level:
+    org.springframework.data.redis: INFO
+    org.springframework.web: INFO
+    org.springframework.web.reactive: INFO
