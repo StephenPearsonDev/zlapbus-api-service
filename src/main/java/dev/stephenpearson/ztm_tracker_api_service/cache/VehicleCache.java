@@ -10,14 +10,9 @@ import java.util.stream.Collectors;
 @Component
 public class VehicleCache {
 
-    private final AtomicReference<Map<String, List<VehicleLocation>>> busesByLine =
-        new AtomicReference<>(Map.of());
-
-    private final AtomicReference<Map<String, List<VehicleLocation>>> tramsByLine =
-        new AtomicReference<>(Map.of());
-
-    private final AtomicReference<List<VehicleLocation>> allVehicles =
-        new AtomicReference<>(List.of());
+    private final AtomicReference<Map<String, List<VehicleLocation>>> busesByLine = new AtomicReference<>(Map.of());
+    private final AtomicReference<Map<String, List<VehicleLocation>>> tramsByLine = new AtomicReference<>(Map.of());
+    private final AtomicReference<List<VehicleLocation>> allVehicles =  new AtomicReference<>(List.of());
 
     public void update(List<VehicleLocation> all) {
         Map<String, List<VehicleLocation>> buses  = new HashMap<>();

@@ -17,30 +17,33 @@ public class VehicleService {
         this.cache = cache;
     }
 
-    public List<VehicleLocation> getVehicles(
-            List<String> types,
-            List<String> lines,
-            List<String> ids) {
-
+    public List<VehicleLocation> getVehicles(List<String> types, List<String> lines, List<String> ids) {
+    	
         Stream<VehicleLocation> stream = Stream.empty();
+        
         boolean includeTrams = types == null || types.contains("trams");
         boolean includeBuses = types == null || types.contains("buses");
 
         if (lines != null && !lines.isEmpty()) {
             List<String> matched = matchLines(lines, includeBuses, includeTrams);
+            
             if (matched.isEmpty()) {
                 return List.of();
             }
+            
             if (includeTrams) {
                 stream = matched.stream()
                                 .flatMap(l -> cache.getTramsByLine(l).stream());
             }
+            
             if (includeBuses) {
                 stream = Stream.concat(stream,
                         matched.stream()
                                .flatMap(l -> cache.getBusesByLine(l).stream()));
             }
+            
         } else {
+        	
             if (includeTrams) {
                 stream = cache.getTramsByLine().values()
                               .stream()
@@ -61,10 +64,7 @@ public class VehicleService {
         return stream.toList();
     }
 
-    private List<String> matchLines(
-            List<String> lines,
-            boolean includeBuses,
-            boolean includeTrams) {
+    private List<String> matchLines(List<String> lines, boolean includeBuses, boolean includeTrams) {
 
         Set<String> normalized = lines.stream()
                                       .filter(Objects::nonNull)
@@ -72,7 +72,9 @@ public class VehicleService {
                                       .map(String::toLowerCase)
                                       .collect(Collectors.toSet());
 
+        
         Stream<String> keys = Stream.empty();
+        
         if (includeTrams) {
             keys = cache.getTramsByLine().keySet().stream();
         }

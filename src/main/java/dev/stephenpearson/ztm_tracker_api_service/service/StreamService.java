@@ -25,11 +25,13 @@ public class StreamService {
 		
 	}
 	
-	
+	//could remove lines?
 	public ServerSentEvent<String> toSseEvent(List<String> types, List<String> lines, List<String> ids, String accept) {
 		
 		List<VehicleLocation> chosenVehicles = vehicleService.getVehicles(types, lines, ids);
 		
+		
+		//probably not needed - for this endpoint we are only ever chekcing buses and trams - no lines
 		if(lines != null && !lines.isEmpty() && chosenVehicles.isEmpty()) {
 			return ServerSentEvent.<String>builder()
 					.event("warning")
